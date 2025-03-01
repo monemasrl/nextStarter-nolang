@@ -7,7 +7,7 @@ import Nav from "@/components/mainLayoutComponents/nav/nav";
 import CookieConsentBanner from "@/components/cookieConsent/cookieConsent";
 import Footer from "@/components/mainLayoutComponents/footer/footer";
 import ScrollTop from "@/components/scroll/scrollToTop";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import GoogleAnalytics from "@/components/cookieConsent/googleAnalytics";
 
 const inter = Roboto_Condensed({
   subsets: ["latin"],
@@ -40,7 +40,9 @@ export default async function RootLayout({
         <Footer />
         <ScrollTop />
       </body>
-      {/* <GoogleAnalytics gaId="UA-77301206-1" /> */}
+      {process.env.GA_MEASUREMENT_ID && (
+        <GoogleAnalytics GA_MEASUREMENT_ID={process.env.GA_MEASUREMENT_ID} />
+      )}
     </html>
   );
 }
