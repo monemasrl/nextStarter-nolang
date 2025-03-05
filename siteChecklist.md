@@ -16,7 +16,7 @@ Checklist con fondamentali per pubblicazione
 - [ ] cookies, privacy pagine e modale
 
 # Codice
-
+- [ ] MediaQuery: utilizzare hook in /hook/mediaquery.tsx
 - [ ] Verificare i metadata (Open Graph, Twitter Card)
 - [ ] Verificare gli script per Analitycs vari
 - [ ] Verificare funzionamento dei Form
