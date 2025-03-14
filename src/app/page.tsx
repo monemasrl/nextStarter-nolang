@@ -9,6 +9,7 @@ import Parallax from "@/components/parallax/parallax";
 import Gallery from "@/components/gallery/gallery";
 import Image from "next/image";
 import generic from "../../public/data/generic.json";
+import ScrollFix from "@/components/scroll/scrollFix";
 
 /**
  * PAGINA
@@ -239,6 +240,7 @@ export default async function Home({
           }}
         />
       </AnimatedSection>
+      <ScrollFix />
     </main>
   );
 }
