@@ -1,0 +1,28 @@
+.imagePreload {
+  position: relative;
+  .loaded {
+    animation: opacity 0.5s ease-in-out;
+  }
+  &__loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 0;
+    img {
+      animation: opacity 2s ease-in-out alternate infinite;
+    }
+  }
+}
+@keyframes opacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
