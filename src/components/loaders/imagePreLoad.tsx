@@ -1,108 +1,62 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
 import Image, { StaticImageData } from "next/image";
 import { useState } from "react";
-import style from "./loader.module.scss";
+import "./imagepreload.scss";
 
 export const ImagePreload = ({
-  src,
-  alt,
-  width,
-  height,
-  isLazy,
+  loader,
+  image,
+  round = false,
+  backgroundColor = "transparent",
   type,
 }: {
-  src: StaticImageData | string;
-  alt: string;
-  width?: number;
-  height?: number;
-  isLazy?: boolean;
+  loader?: { url: StaticImageData | string; width: number; height: number };
+  image: {
+    url: StaticImageData | string;
+    width: number;
+    height: number;
+    alt: string;
+  };
+  children?: React.ReactNode;
+  round?: boolean;
   type: "fill" | "hero" | "fixed";
+  backgroundColor?: string;
 }) => {
-  const [reveal, setReveal] = useState(false);
-  const visibility = reveal ? "visible" : "hidden";
-  const loader = reveal ? "none" : "inline-block";
-
+  const [loaded, setLoaded] = useState(false);
   return (
     <div
-      className={`${style.imagePreloadWrapper} ${
-        type === "hero"
-          ? style.hero
-          : type === "fill"
-          ? style.fill
-          : style.fixed
-      }`}
+      className={"imagePreload" + " " + type}
       style={{
-        width: "100%",
-        position: "relative",
+        borderRadius: round ? "50%" : "0",
+        overflow: round ? "hidden" : "",
       }}
     >
-      {type === "hero" && (
-        <Image
-          className={style.imagePreload}
-          src={src || ""}
-          alt={alt}
-          layout="fill"
-          style={{ visibility, objectFit: "cover", width: "100%" }}
-          onError={() => setReveal(true)}
-          onLoadingComplete={() => setReveal(true)}
-          priority={true}
-          sizes="(max-width: 440px) 30vw,(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 100vw"
-        />
+      {!loaded && (
+        <div className="imagePreload__loader" style={{ backgroundColor }}>
+          {loader && (
+            <Image
+              src={loader.url}
+              alt={"loader"}
+              width={loader.width}
+              height={loader.height}
+              style={{ width: loader.width, height: loader.height }}
+            />
+          )}
+        </div>
       )}
-      {type === "fixed" && (
-        <Image
-          src={src || ""}
-          alt={alt}
-          width={width}
-          height={height}
-          style={{ visibility }}
-          onError={() => setReveal(true)}
-          onLoadingComplete={() => setReveal(true)}
-          priority={isLazy}
-          sizes="(max-width: 480px) 40vw,"
-        />
-      )}
-
-      {type === "fill" && (
-        <Image
-          className={style.imagePreload}
-          src={src || ""}
-          alt={alt}
-          layout="fill"
-          onError={() => setReveal(true)}
-          onLoadingComplete={() => setReveal(true)}
-          priority={!isLazy}
-          sizes="(max-width: 480px) 50vw, (max-width: 1200px) 100vw, 100vw"
-        />
-      )}
-      <AnimatePresence>
-        {!reveal && (
-          <motion.div className={style.loader}>
-            <motion.div
-              initial={{ opacity: 0.3, scale: 0.95 }}
-              animate={{
-                opacity: 1,
-                scale: 1,
-                transition: {
-                  duration: 1,
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                },
-              }}
-            >
-              <Image
-                src="/image/leiloader.svg"
-                width={300}
-                height={58}
-                alt="logo"
-              />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <Image
+        src={image.url}
+        alt={"test"}
+        width={image.width}
+        height={image.height}
+        onLoad={(e) => {
+          (e.currentTarget as HTMLImageElement).classList.add("loaded");
+          setLoaded(true);
+        }}
+      />
     </div>
   );
 };
 export default ImagePreload;
+
