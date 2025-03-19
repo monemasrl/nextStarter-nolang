@@ -51,14 +51,14 @@ function NavBar() {
         <div className={style.mainNavBar__logo}>
           <Link href="/">
             {!scrolling ? (
-              <img
+              <Image
                 src="/image/logo-studio-dentistico-vincenzi.png"
                 width={300}
                 height={58}
                 alt="logo"
               />
             ) : (
-              <img
+              <Image
                 src="/image/dott-vincenti-logo.png"
                 width={300}
                 height={58}

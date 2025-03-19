@@ -9,7 +9,7 @@ import Parallax from "@/components/parallax/parallax";
 import Gallery from "@/components/gallery/gallery";
 import Image from "next/image";
 import generic from "../../public/data/generic.json";
-import ScrollFix from "@/components/scroll/scrollFix";
+import ScrollFix from "@/components/scroll/scrollfix";
 
 /**
  * PAGINA
@@ -18,11 +18,7 @@ import ScrollFix from "@/components/scroll/scrollFix";
  * Passare i dati ai componenti tramite props
  */
 
-export default async function Home({
-  params: { locale },
-}: {
-  params: { locale: string };
-}) {
+export default async function Home() {
   const HeroDataLang = heroData["it"];
   const HomeDataLang = homeData["it"];
   const StaffDataLang = staffData["it"];

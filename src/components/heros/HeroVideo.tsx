@@ -6,6 +6,7 @@ import { useState } from "react";
 import LoaderSite from "@/components/loaders/loader";
 import { usePathname } from "next/navigation";
 import React from "react";
+import ImagePreload from "@/components/loaders/imagePreLoad";
 /**
  * HERO VIDEO
  * Componente per la gestione del video in homepage con testo
@@ -113,11 +114,18 @@ function HeroVideo({
         )}
         {typeOfData === "image" && (
           <ImagePreload
-            src={URL}
-            alt="heroImage"
-            type="hero"
-            width={1920}
-            height={1080}
+            loader={{
+              url: "/image/vercel.svg",
+              width: 1920,
+              height: 1080,
+            }}
+            image={{
+              url: URL,
+              width: 1920,
+              height: 1080,
+              alt: "heroImage",
+            }}
+            type="fixed"
           />
         )}
       </div>
